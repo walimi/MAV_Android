@@ -122,27 +122,27 @@ public class MainActivity extends AppCompatActivity {
                         prayerTimesDate.setText("Prayer times for:" + date);
 
                         // set prayer times
-                        fajrAdhan.setText(prayerTimes.getJSONObject("fajr").getString("adhan"));
+                        fajrAdhan.setText(prayerTimes.getJSONObject("fajr").getString("adhan") + "-");
                         fajrIqaamah.setText(prayerTimes.getJSONObject("fajr").getString("iqaamah"));
 
                         // set sunrise times
                         sunriseAdhan.setText(prayerTimes.getJSONObject("sunrise").getString("adhan"));
 
                         // set dhuhr times
-                        dhuhrAdhan.setText(prayerTimes.getJSONObject("dhuhr").getString("adhan"));
+                        dhuhrAdhan.setText(prayerTimes.getJSONObject("dhuhr").getString("adhan") + "-");
                         dhuhrIqaamah.setText(prayerTimes.getJSONObject("dhuhr").getString("iqaamah"));
 
                         // set asr times
-                        asrAdhan.setText(prayerTimes.getJSONObject("asr").getString("adhan"));
+                        asrAdhan.setText(prayerTimes.getJSONObject("asr").getString("adhan") + "-");
                         asrIqaamah.setText(prayerTimes.getJSONObject("asr").getString("iqaamah"));
 
 
                         // set maghrib times
-                        maghribAdhan.setText(prayerTimes.getJSONObject("maghrib").getString("adhan"));
+                        maghribAdhan.setText(prayerTimes.getJSONObject("maghrib").getString("adhan") + "-");
                         maghribIqaamah.setText(prayerTimes.getJSONObject("maghrib").getString("iqaamah"));
 
                         // set isha times
-                        ishaAdhan.setText(prayerTimes.getJSONObject("isha").getString("adhan"));
+                        ishaAdhan.setText(prayerTimes.getJSONObject("isha").getString("adhan") + "-");
                         ishaIqaamah.setText(prayerTimes.getJSONObject("isha").getString("iqaamah"));
                         break;
                     }
