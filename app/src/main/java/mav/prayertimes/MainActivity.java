@@ -15,6 +15,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             ishaIqaamah;
     //endregion
 
-    private static final String PRAYER_TIMES_REST_ENDPOINT = "http://api.myjson.com/bins/1ctjsh";
+    private static final String PRAYER_TIMES_REST_ENDPOINT = "https://api.myjson.com/bins/d0ywh";
 
 
     @Override
@@ -97,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-
             return response.toString();
         }
 
@@ -108,43 +109,43 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject jsnObject = new JSONObject(response);
                 JSONArray jsonArray = jsnObject.getJSONArray("prayerTimes");
+
+                DateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                String curDate = sdf.format(new Date());
+
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject explrObject = jsonArray.getJSONObject(i);
 
-                    // set the date
-                    Integer dateMonth = explrObject.getJSONObject("date").getInt("month");
-                    Integer dateDay = explrObject.getJSONObject("date").getInt("day");
-                    Integer dateYear = explrObject.getJSONObject("date").getInt("year");
+                    JSONObject prayerTimes = jsonArray.getJSONObject(i);
+                    String date = prayerTimes.getString("date");
 
+                    if (date.equals(curDate)) {
+                        prayerTimesDate.setText("Prayer times for:" + date);
 
-                    StringBuffer dateBuffer = new StringBuffer();
-                    dateBuffer.append(this.getMonth(dateMonth) + "-" + dateDay + "-" + dateYear);
-                    prayerTimesDate.setText("Prayer times for: " + dateBuffer.toString());
+                        // set prayer times
+                        fajrAdhan.setText(prayerTimes.getJSONObject("fajr").getString("adhan"));
+                        fajrIqaamah.setText(prayerTimes.getJSONObject("fajr").getString("iqaamah"));
 
-                    // set prayer times
-                    fajrAdhan.setText(explrObject.getJSONObject("fajr").getString("adhan"));
-                    fajrIqaamah.setText(explrObject.getJSONObject("fajr").getString("iqaamah"));
+                        // set sunrise times
+                        sunriseAdhan.setText(prayerTimes.getJSONObject("sunrise").getString("adhan"));
 
-                    // set sunrise times
-                    sunriseAdhan.setText(explrObject.getJSONObject("sunrise").getString("adhan"));
+                        // set dhuhr times
+                        dhuhrAdhan.setText(prayerTimes.getJSONObject("dhuhr").getString("adhan"));
+                        dhuhrIqaamah.setText(prayerTimes.getJSONObject("dhuhr").getString("iqaamah"));
 
-                    // set dhurh times
-                    dhuhrAdhan.setText(explrObject.getJSONObject("dhuhr").getString("adhan"));
-                    dhuhrIqaamah.setText(explrObject.getJSONObject("dhuhr").getString("iqaamah"));
-
-                    // set asr times
-                    asrAdhan.setText(explrObject.getJSONObject("asr").getString("adhan"));
-                    asrIqaamah.setText(explrObject.getJSONObject("asr").getString("iqaamah"));
+                        // set asr times
+                        asrAdhan.setText(prayerTimes.getJSONObject("asr").getString("adhan"));
+                        asrIqaamah.setText(prayerTimes.getJSONObject("asr").getString("iqaamah"));
 
 
-                    // set maghrib times
-                    maghribAdhan.setText(explrObject.getJSONObject("maghrib").getString("adhan"));
-                    maghribIqaamah.setText(explrObject.getJSONObject("maghrib").getString("iqaamah"));
+                        // set maghrib times
+                        maghribAdhan.setText(prayerTimes.getJSONObject("maghrib").getString("adhan"));
+                        maghribIqaamah.setText(prayerTimes.getJSONObject("maghrib").getString("iqaamah"));
 
-                    // set isha times
-                    ishaAdhan.setText(explrObject.getJSONObject("isha").getString("adhan"));
-                    ishaIqaamah.setText(explrObject.getJSONObject("isha").getString("iqaamah"));
-
+                        // set isha times
+                        ishaAdhan.setText(prayerTimes.getJSONObject("isha").getString("adhan"));
+                        ishaIqaamah.setText(prayerTimes.getJSONObject("isha").getString("iqaamah"));
+                        break;
+                    }
                 }
 
             } catch(JSONException e) {
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private String getMonth(int monthNum) {
-            String[] months = {"January",
+            String[] months = {
+                    "January",
                     "February",
                     "March",
                     "April",
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     "September",
                     "October",
                     "November",
-                    "December"};
+                    "December" };
 
             return months[monthNum - 1];
         }

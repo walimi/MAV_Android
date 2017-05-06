@@ -11,10 +11,10 @@
 
 
     <RelativeLayout
-        android:layout_width="358dp"
-        android:layout_height="146dp"
+        android:layout_width="370dp"
+        android:layout_height="142dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteX="6dp"
         tools:layout_editor_absoluteY="4dp">
 
         <TextView
