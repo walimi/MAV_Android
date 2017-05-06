@@ -119,7 +119,13 @@ public class MainActivity extends AppCompatActivity {
                     String date = prayerTimes.getString("date");
 
                     if (date.equals(curDate)) {
-                        prayerTimesDate.setText("Prayer times for:" + date);
+                        // format date and set to UI element
+                        DateFormat fullDf = DateFormat.getDateInstance(DateFormat.FULL);
+                        String[] dateParts = date.split("-");
+                        Integer month = Integer.parseInt(dateParts[0]);
+                        Integer day = Integer.parseInt(dateParts[1]);
+                        Integer year = Integer.parseInt(dateParts[2]);
+                        prayerTimesDate.setText("Prayer times for:" + fullDf.format(new Date(year - 1900, month - 1, day)));
 
                         // set prayer times
                         fajrAdhan.setText(prayerTimes.getJSONObject("fajr").getString("adhan") + "-");
