@@ -40,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String PRAYER_TIMES_REST_ENDPOINT = "https://api.myjson.com/bins/d0ywh";
 
+    String curDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        curDate = sdf.format(new Date());
 
         //region initialize UI objects
         prayerTimesDate = (TextView)findViewById(R.id.prayerTimesDate);
@@ -110,8 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsnObject = new JSONObject(response);
                 JSONArray jsonArray = jsnObject.getJSONArray("prayerTimes");
 
-                DateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-                String curDate = sdf.format(new Date());
+
 
                 for (int i = 0; i < jsonArray.length(); i++) {
 
